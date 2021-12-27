@@ -1,6 +1,7 @@
 package me.itschiel.sharedlives;
 
 import me.itschiel.sharedlives.manager.LiveManager;
+import me.itschiel.sharedlives.manager.ServerPlayerListManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
@@ -17,5 +18,6 @@ public class Main extends JavaPlugin {
 
 
         getServer().getPluginManager().registerEvents(new LiveManager(), this);
+        getServer().getPluginManager().registerEvents(new ServerPlayerListManager(), this);
     }
 }

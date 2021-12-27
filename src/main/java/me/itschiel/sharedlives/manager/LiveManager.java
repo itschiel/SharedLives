@@ -1,6 +1,7 @@
 package me.itschiel.sharedlives.manager;
 
 import me.itschiel.sharedlives.Main;
+import me.itschiel.sharedlives.entity.PlayerList;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,18 +26,18 @@ public class LiveManager implements Listener {
         main.getConfig().set("death_count", death_count);
         main.saveConfig();
 
+        PlayerList.setLives(lives);
+        PlayerList.setDeath_count(death_count);
+        PlayerList.updateAll();
+
         if (death_count == lives){
             Collection<? extends Player> players = main.getServer().getOnlinePlayers();
 
             for (Player player: players){
                 player.setGameMode(GameMode.SPECTATOR);
-                player.sendMessage("Because all lives have been depleted, you are now a spectator");
             }
-
-            return;
         }
 
-        main.getServer().broadcastMessage((lives - death_count) + "/" + lives + " lives are left!");
     }
 
     @EventHandler
@@ -49,11 +50,10 @@ public class LiveManager implements Listener {
         int death_count = main.getConfig().getInt("death_count");
         int lives = main.getConfig().getInt("lives");
 
-        System.out.println(death_count + " / " + lives);
+        PlayerList.update(player);
 
         if (death_count == lives){
             player.setGameMode(GameMode.SPECTATOR);
-            player.sendMessage("Because all lives have been depleted, you are now a spectator");
         }
     }
 }
