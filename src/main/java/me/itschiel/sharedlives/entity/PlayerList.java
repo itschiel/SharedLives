@@ -13,7 +13,7 @@ public final class PlayerList {
     private static int lives = main.getConfig().getInt("lives");
     private static int death_count = main.getConfig().getInt("death_count");
 
-    private static String header = (lives - death_count) + "/" + lives + " lives are left";
+    private static String header;
 
 
     // Getters and Setters
@@ -42,19 +42,27 @@ public final class PlayerList {
     public static void updateAll(){
         Collection<? extends Player> players = Bukkit.getOnlinePlayers();
 
+        updateHeader();
+
         for (Player player: players){
             player.setPlayerListHeader(header);
         }
     }
 
     public static void update(Player player){
+        updateHeader();
+
         player.setPlayerListHeader(header);
     }
 
     public static void reload(){
+        updateAll();
+    }
+
+    private static void updateHeader(){
         main.reloadConfig();
         lives = main.getConfig().getInt("lives");
         death_count = main.getConfig().getInt("death_count");
-        updateAll();
+        //header = (lives - death_count) + "/" + lives + " lives are left";
     }
 }

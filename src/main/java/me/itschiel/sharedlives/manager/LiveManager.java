@@ -26,10 +26,6 @@ public class LiveManager implements Listener {
         main.getConfig().set("death_count", death_count);
         main.saveConfig();
 
-        PlayerList.setLives(lives);
-        PlayerList.setDeath_count(death_count);
-        PlayerList.updateAll();
-
         if (death_count == lives){
             Collection<? extends Player> players = main.getServer().getOnlinePlayers();
 
@@ -38,6 +34,7 @@ public class LiveManager implements Listener {
             }
         }
 
+        PlayerList.updateAll();
     }
 
     @EventHandler
@@ -50,10 +47,10 @@ public class LiveManager implements Listener {
         int death_count = main.getConfig().getInt("death_count");
         int lives = main.getConfig().getInt("lives");
 
-        PlayerList.update(player);
-
         if (death_count == lives){
             player.setGameMode(GameMode.SPECTATOR);
         }
+
+        PlayerList.update(player);
     }
 }
