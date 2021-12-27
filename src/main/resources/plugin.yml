@@ -1,0 +1,5 @@
+name: SharedLives
+version: 0.0.1
+author: itschiel
+main: me.itschiel.sharedlives.Main
+api-version: 1.18
